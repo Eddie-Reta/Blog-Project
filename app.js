@@ -42,12 +42,28 @@ app.get("/compose", function(req, res){
 app.post("/compose", function(req, res) {
  const post = {
    title: req.body.postTitle,
-   body: req.body.postBody
+   content: req.body.postBody
  }
 
  posts.push(post);
 
  res.redirect("/");
+});
+
+//Dynamic URL using express params
+app.get("/posts/:blog", function(req, res) {
+  //console.log(req.params.blog)
+  const urlTiltle = req.params.blog;
+  
+  posts.forEach(function(post){
+    const storedTitle = post.title;
+
+    if(storedTitle === urlTiltle) {
+      console.log("Match Found!");
+    } else {
+      console.log("Match Not Found!");
+    }
+  });
 });
 
 app.listen(3000, function() {
