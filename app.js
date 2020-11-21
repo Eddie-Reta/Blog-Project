@@ -20,9 +20,11 @@ app.use(express.static("public"));
 
 //Rendering routes for pages.
 app.get("/", function(req, res) {
+ // let link =  res.render("/post");
   res.render("home", {
     startingContent: homeStartingContent,
-    blogPosts: posts
+    blogPosts: posts,
+    link: 0
   });
 });
 
@@ -41,9 +43,10 @@ app.get("/compose", function(req, res){
 
 //POST data to home page.
 app.post("/compose", function(req, res) {
+  let bodyContent = req.body.postBody
  const post = {
    title: req.body.postTitle,
-   content: req.body.postBody
+   content: bodyContent
  }
 
  posts.push(post);
@@ -60,13 +63,14 @@ app.get("/posts/:blog", function(req, res) {
     const storedTitle = _.lowerCase(post.title);
     
     if(storedTitle === urlTiltle) {
-      res.render("post", {
+      res.render("/post", {
         title: post.title,
         content: post.content
       });
     };
   });
 });
+
 
 app.listen(3000, function() {
   console.log("Server started on port 3000");
