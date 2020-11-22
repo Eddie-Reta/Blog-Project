@@ -23,8 +23,7 @@ app.get("/", function(req, res) {
  // let link =  res.render("/post");
   res.render("home", {
     startingContent: homeStartingContent,
-    blogPosts: posts,
-    link: 0
+    blogPosts: posts
   });
 });
 
@@ -63,14 +62,13 @@ app.get("/posts/:blog", function(req, res) {
     const storedTitle = _.lowerCase(post.title);
     
     if(storedTitle === urlTiltle) {
-      res.render("/post", {
+      res.render("post", {
         title: post.title,
         content: post.content
       });
     };
   });
 });
-
 
 app.listen(3000, function() {
   console.log("Server started on port 3000");
